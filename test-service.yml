@@ -1,0 +1,31 @@
+version: "3.3"
+
+networks: 
+  proxy:
+    external: true
+
+services:
+  whoami:
+    image: "containous/whoami"
+    networks: 
+     - proxy
+    deploy:
+     labels:
+      - traefik.enable=true
+      - traefik.http.routers.whoami.rule=Host(`whoami.clincicasim.com`)
+      - traefik.http.routers.whoami.entrypoints=web
+      - traefik.http.routers.whoami.service=whoami-service
+      - traefik.http.services.whoami-service.loadbalancer.server.port=80
+
+  nginx:
+    image: "nginx:alpine"
+    networks: 
+     - proxy
+    deploy:
+     labels:
+      - traefik.enable=true
+      - traefik.http.routers.nginx.rule=Host(`nginx.clincicasim.com`)
+      - traefik.http.routers.nginx.entrypoints=web
+      - traefik.http.routers.nginx.service=nginx-service
+      - traefik.http.services.nginx-service.loadbalancer.server.port=80
+

@@ -34,10 +34,10 @@ services:
         condition: on-failure
       labels:
         - traefik.enable=true
-        - traefik.http.routers.traefik.rule=Host(`traefik.clinicasim.com`)
+        - traefik.http.routers.traefik.rule=Host(`traefik.local`)
         - traefik.http.routers.traefik.service=api@internal
         - traefik.http.routers.traefik.entrypoints=web
         - traefik.http.routers.traefik.middlewares=auth
-        - traefik.http.middlewares.auth.basicauth.users=sresimco:{SHA}/ouIqB9Ko7uRlGim/ZssmnuXiOY=,devsimco:{SHA}OgKR2V9Irxp10Rt0oE/et0Pp68A=
+        - traefik.http.middlewares.auth.basicauth.users=admin:{SHA}/ouIqB9Ko7uRlGim/ZssmnuXiOY=,dev:{SHA}OgKR2V9Irxp10Rt0oE/et0Pp68A=
         - traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080 # dashboard port
         
